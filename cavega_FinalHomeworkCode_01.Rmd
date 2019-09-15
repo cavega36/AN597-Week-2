@@ -1,0 +1,233 @@
+---
+title: "cavega_FinalHomeworkCode_01"
+author: "C. Vega"
+date: "9/15/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Matrices and Arrays
+
+```
+library(stringr)
+m<- matrix(data=c(1,2,3,4), nrow=2, ncol=2)
+m
+m<- matrix(data=c(1,2,3,4,5,6), nrow=2, ncol=3, byrow=FALSE)
+m
+m<- matrix(data=c(1,2,3,4,5,6), nrow=2, ncol=3, byrow=TRUE)
+m
+v1<- c(1,2,3,4)
+v2 <- c(6,7,8,9)
+m1 <-rbind(v1,v2)
+m1
+```
+
+## Makes into columns (v1 and v2 will be atop each column)
+
+```
+m2 <-cbind(v1,v2)
+m2
+class(m1)
+dim(m1)
+class(m2)
+dim(m2)
+colnames(m2)
+rownames(m2)
+str(m2)
+```
+
+## Making Arrays
+
+```
+a<- array(data=1:90, dim=c(5,6,3))
+a
+```
+
+# Challenge 1 Action
+```
+Ulysses<-c("stately","plump","Buck","Mulligan","came","from","the","stairhead","bearing","a","bowl","of","lather","on","which","a","mirror","and","a","razor","lay","crossed")
+Ulysses
+```
+
+## Extracting every third element
+```
+Ulysses[1:22*3]
+```
+
+# Challenge 2 Practice
+```
+m<- matrix(data=1:80, nrow=8, ncol=10, byrow=FALSE)
+m
+``` 
+
+## Extract element and add to new variable
+```
+x <- m[4,5]
+x
+```
+
+## Extract only row (or only column)
+```
+m[row=5,]
+```
+
+# Challenge 2 Action
+## ?currently struggling with how to put all three of these into one vector (SOLVED)
+```
+x<-m[,2],
+m[,3], m[,6]
+```
+
+## Figured out how to put all three columns in one vector (Challenge 2.1)
+```
+x<-m[,c(2,3,6)]
+x
+```
+## How to assign rows to a vector (Challenge 2.2)
+```
+x<-m[6:8,]
+x
+```
+
+## Assign both rows and columns (Challenge 2.3)
+```
+x<-m[2:6,2:9]
+x
+```
+
+# Challenge 3 Action (a=elements for array)
+## Challenge 3.1
+```
+a<- array(data=400:1, dim=c(5,5,4,4))
+a
+```
+## Challenge 3.2
+```
+a[1,1,1,2]
+```
+### 300
+```
+a[2,3,2,]
+```
+### 364, 264, 164, 64
+```
+a[1:5,1:5,3,3]
+```
+### Counts down 150 to 126 by fives
+### ? I am curious how this last one works? I understand that the first 1:5 is rows, second 1:5 is columns, but I do not understand the two 3's at the end and how they make the sequence count down in this way.
+
+# Challenge 4 Practice
+## Overwriting 
+```
+m[7,1] <- 564
+m[,8]<- 2
+m[2:5, 4:8] <- 1
+m[2:5, 4:8] <- c(20,19,18,17)
+m[2:5, 4:8] <- matrix(data = c(20:1, nrow=4, ncol=5,byrow=TRUE))
+m[2:5, 4:8]
+m[,8]<- c("a", "b")
+m[2:5, 4:8]
+```
+### ? I am not sure this is right, I kept getting an error saying "# of items to replace is not a multiple of replacement length"
+
+## Lists and Data Frames
+### Extracting elements and making a list
+```
+s<- c("this","is","a","vector","of","strings")
+m <- matrix(data=1:40, nrow=5, ncol=8)
+b<- FALSE
+l<- list(s,m,b)
+l
+```
+### ? Why do I keep getting this "subscript out of bounds" error? I looked it up and the internet says it has something to do with looping? (SOLVED)
+### Fixed it. I was inputting the number 1 instead of the letter l
+```
+l[[2]]
+l[[2]][2,6]
+l[1:2]
+l[c(1,3)]
+
+str(l)
+
+names(l) <- c("string", "matrix", "logical")
+names(l)
+
+l$string
+l$matrix
+l$matrix[3,5]
+```
+
+# Challenge 4 Action
+## Challenge 4.1: Make a list of simple primate taxonomy
+### ??? I have no idea how to make this bulleted list, i tried nesting the lists but am not sure how to do so
+```
+p<- list("primates", "haplorhini", "strepsirhini")
+```
+
+# Data Frames Practice
+## How to Make a Data Frame from Scratch
+```
+df<- data.frame(firstName=c("Nitin", "Silvy", "Ingrid", "Claire"), program=c("iSchool", "Anthro", "Anthro", "EEB"), sex=c("M", "F", "F", "F"), yearInProgram=c(1,2,2,3))
+df
+```
+
+## Data frame from table- do not need file path if it's in the repo
+```
+df <- read.csv("random-people.csv", sep=",", header=TRUE, stringsAsFactors= FALSE)
+df
+
+df[,c(1,3,4,11,12)]
+str(df)
+str(df[,3])
+df$name.last
+str(df$name.last)
+df[3]
+df["name.last"]
+```
+### ? what is the difference between using str() and df[] or df$name.last? Are they all different ways to do the same thing?
+
+## Adding rows(cases)/columns(variables)
+```
+df <- cbind(df, id=c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20))
+df <- cbind(df, school=c("BU","BU","Harvard","Harvard","BU","Boston College","MIT","BU","BU","UMASS Boston","Harvard","BU","Boston College","BU","Harvard","MIT","Harvard","BU", "UMASS Boston", "Harvard"))
+df
+```
+
+## Directly adding variable
+```
+df$school
+df$school <- c("BU","BU","Harvard","Harvard","BU","Boston College","MIT","BU","BU","UMASS Boston","Harvard","BU","Boston College","BU","Harvard","MIT","Harvard","BU", "UMASS Boston", "Harvard")
+df
+```
+
+## Filtering
+```
+new_df <-df[df$school == "BU",]
+new_df
+
+new_df <-df[df$school == "BU", c("name.last", "name.first", "school")]
+new_df
+```
+
+# Challenge 5 Action
+## Challenge 5.1: Make Matrix
+```
+c<- matrix(data=c(3,0,1,23,1,2,33,1,1,42,0,1,41,0,2), nrow=5, ncol=3, byrow=TRUE)
+c
+```
+## Challenge 5.2: Make Matrix into data fram
+```
+df1<- data.frame(c)
+df1
+```
+
+## Challenge 5.3: Coerce to logical-valued and factor-valued
+```
+as.logical(df1[,2])
+as.factor(df1[,3])
+
+str(df1)
+```
